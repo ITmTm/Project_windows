@@ -28,6 +28,7 @@
 		"node": "16.20.2"
 	},
 	"dependencies": {
-		"jquery": "^3.7.1"
+		"jquery": "^3.7.1",
+		"slick-carousel": "^1.8.1"
 	}
 }
