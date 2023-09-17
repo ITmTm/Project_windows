@@ -1,6 +1,49 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/modules/modals.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/modals.js ***!
+  \**********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const modals = () => {
+  function bindModal(trigger, modal, close) {
+    trigger.addEventListener('click', e => {
+      if (e.target) {
+        e.preventDefault();
+      }
+      modal.style.display = 'block';
+      // document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open'); //bootstrap
+    });
+
+    close.addEventListener('click', () => {
+      closeModal();
+    });
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+    function closeModal() {
+      modal.style.display = 'none';
+      document.body.classList.remove('modal-open');
+      // document.body.style.overflow = '';
+    }
+  }
+
+  const callEngineerBtn = document.querySelector('.popup_engineer_btn'),
+    modalEngineer = document.querySelector('.popup_engineer'),
+    modalEngineerClose = document.querySelector('.popup_engineer .popup_close');
+  bindModal(callEngineerBtn, modalEngineer, modalEngineerClose);
+};
+/* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
 /***/ "./src/js/slider.js":
 /*!**************************!*\
   !*** ./src/js/slider.js ***!
@@ -13912,8 +13955,12 @@ var __webpack_exports__ = {};
   \************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./src/js/slider.js");
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
 
-console.log(1);
+
+window.addEventListener('DOMContentLoaded', function () {
+  (0,_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
+});
 }();
 /******/ })()
 ;
