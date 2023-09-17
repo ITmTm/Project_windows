@@ -23,5 +23,11 @@
 		"gulp": "^4.0.2",
 		"webpack": "^5.86.0",
 		"webpack-stream": "^7.0.0"
+	},
+	"volta": {
+		"node": "16.20.2"
+	},
+	"dependencies": {
+		"jquery": "^3.7.1"
 	}
 }
