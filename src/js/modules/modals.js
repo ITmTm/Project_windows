@@ -1,4 +1,4 @@
-const modals = () => {
+const modals = (state) => {
 	function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true) {
 		const trigger = document.querySelectorAll(triggerSelector),
 			  modal = document.querySelector(modalSelector),
@@ -6,9 +6,24 @@ const modals = () => {
 			  windows = document.querySelectorAll('[data-modal]');
 
 		trigger.forEach(item => {
-			item.addEventListener('click', (e) => {
+			let event = item.addEventListener('click', (e) => {
 				if (e.target) {
 					e.preventDefault();
+				}
+
+				if (modal.classList.contains('popup_calc_profile')) {
+					if (!state.form || !state.width || !state.height) {
+						alert('Выберите форму и укажите размер');
+
+						event.removeEventListener();
+					}
+				}
+
+				if (modal.classList.contains('popup_calc_end')) {
+					if (!state.type || !state.profile) {
+						alert('Выберите тип остекления и его профиль');
+						event.removeEventListener();
+					}
 				}
 
 				hideWindowsDisplay();

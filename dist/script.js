@@ -70,6 +70,11 @@ const checkNumInputs = selector => {
   numInputs.forEach(item => {
     item.addEventListener('input', () => {
       item.value = item.value.replace(/\D/, '');
+      if (item.value == !Number && item.value == '') {
+        item.style.border = '1px solid red';
+      } else {
+        item.style.border = 'none';
+      }
     });
   });
 };
@@ -86,12 +91,11 @@ const checkNumInputs = selector => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _checkNumInputs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checkNumInputs */ "./src/js/modules/checkNumInputs.js");
-/* harmony import */ var _modals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modals */ "./src/js/modules/modals.js");
-
 
 const forms = state => {
   const form = document.querySelectorAll('form'),
-    inputs = document.querySelectorAll('input');
+    inputs = document.querySelectorAll('input'),
+    windows = document.querySelectorAll('[data-modal]');
   (0,_checkNumInputs__WEBPACK_IMPORTED_MODULE_0__["default"])('input[name="user_phone"]');
   const message = {
     loading: 'Загрузка...',
@@ -130,10 +134,15 @@ const forms = state => {
         statusMessage.textContent = message.failure;
       }).finally(() => {
         clearInputs();
+        for (let key in state) {
+          delete state[key];
+        }
         setTimeout(() => {
           statusMessage.remove();
+          windows.forEach(item => {
+            item.style.display = 'none';
+          });
         }, 5000);
-        (0,_modals__WEBPACK_IMPORTED_MODULE_1__.closeModal)();
       });
     });
   });
@@ -150,7 +159,7 @@ const forms = state => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const modals = () => {
+const modals = state => {
   function bindModal(triggerSelector, modalSelector, closeSelector) {
     let closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
     const trigger = document.querySelectorAll(triggerSelector),
@@ -158,9 +167,21 @@ const modals = () => {
       close = document.querySelector(closeSelector),
       windows = document.querySelectorAll('[data-modal]');
     trigger.forEach(item => {
-      item.addEventListener('click', e => {
+      let event = item.addEventListener('click', e => {
         if (e.target) {
           e.preventDefault();
+        }
+        if (modal.classList.contains('popup_calc_profile')) {
+          if (!state.form || !state.width || !state.height) {
+            alert('Выберите форму и укажите размер');
+            event.removeEventListener();
+          }
+        }
+        if (modal.classList.contains('popup_calc_end')) {
+          if (!state.type || !state.profile) {
+            alert('Выберите тип остекления и его профиль');
+            event.removeEventListener();
+          }
         }
         hideWindowsDisplay();
         modal.style.display = 'block';
@@ -14177,7 +14198,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   let modalState = {};
   (0,_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(modalState);
-  (0,_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  (0,_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])(modalState);
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more', 'inline-block');

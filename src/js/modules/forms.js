@@ -1,8 +1,8 @@
 import checkNumInputs from "./checkNumInputs";
-import {closeModal} from "./modals";
 const forms = (state) => {
 	const form = document.querySelectorAll('form'),
-		  inputs = document.querySelectorAll('input');
+		  inputs = document.querySelectorAll('input'),
+		  windows = document.querySelectorAll('[data-modal]');
 
 	checkNumInputs('input[name="user_phone"]')
 
@@ -53,10 +53,15 @@ const forms = (state) => {
 				})
 				.finally(() => {
 					clearInputs();
+					for (let key in state) {
+						delete state[key];
+					}
 					setTimeout(() => {
 						statusMessage.remove();
+						windows.forEach(item => {
+							item.style.display = 'none'
+						})
 					}, 5000);
-					closeModal();
 				});
 		});
 	});
