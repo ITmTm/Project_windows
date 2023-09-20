@@ -3,7 +3,7 @@ const images = () => {
 		  workSection = document.querySelector('.works'),
 		  bigImage = document.createElement('img');
 
-	imgPopup.classList.add('popup');
+	imgPopup.classList.add('popupimg');
 	workSection.appendChild(imgPopup);
 
 	imgPopup.style.justifyContent = 'center';
@@ -30,14 +30,14 @@ const images = () => {
 			bigImage.setAttribute('src', path);
 		}
 
-		if (target && target.matches('div.popup')) {
+		if (target && target.matches('div.popupimg')) {
 			imgPopup.style.display = 'none';
 
 			document.body.style.overflow = '';
 		}
 
 		document.addEventListener('keydown', (e) => {
-			if (e.code === 'Escape' || target && target.matches('div.popup')) {
+			if (e.code === 'Escape') {
 				document.body.style.overflow = '';
 				imgPopup.style.display = 'none';
 			}

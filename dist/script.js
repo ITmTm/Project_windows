@@ -163,7 +163,7 @@ const images = () => {
   const imgPopup = document.createElement('div'),
     workSection = document.querySelector('.works'),
     bigImage = document.createElement('img');
-  imgPopup.classList.add('popup');
+  imgPopup.classList.add('popupimg');
   workSection.appendChild(imgPopup);
   imgPopup.style.justifyContent = 'center';
   imgPopup.style.alignItems = 'center';
@@ -181,12 +181,12 @@ const images = () => {
       const path = target.parentNode.getAttribute('href');
       bigImage.setAttribute('src', path);
     }
-    if (target && target.matches('div.popup')) {
+    if (target && target.matches('div.popupimg')) {
       imgPopup.style.display = 'none';
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', e => {
-      if (e.code === 'Escape' || target && target.matches('div.popup')) {
+      if (e.code === 'Escape') {
         document.body.style.overflow = '';
         imgPopup.style.display = 'none';
       }
@@ -266,6 +266,7 @@ const modals = state => {
     setTimeout(function () {
       document.querySelector(selector).style.display = 'block';
       document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = `${calcScroll()}px`;
     }, time);
   }
   function calcScroll() {
@@ -284,9 +285,8 @@ const modals = state => {
   bindModal('.popup_calc_btn', '.popup_calc', '.popup_calc_close');
   bindModal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false);
   bindModal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false);
-  // showModalByTime('.popup', 60000);
+  showModalByTime('.popup', 600);
 };
-
 /* harmony default export */ __webpack_exports__["default"] = (modals);
 
 /***/ }),
