@@ -28,6 +28,7 @@
 		"node": "16.20.2"
 	},
 	"dependencies": {
+		"gulp-htmlmin": "^5.0.1",
 		"jquery": "^3.7.1",
 		"slick-carousel": "^1.8.1"
 	}
